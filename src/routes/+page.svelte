@@ -1,6 +1,6 @@
 
 <script>
-  import Map from "./map.svelte";
+  import UnemploymentMap from "./unemploymentMap.svelte";
   import { MapLibre } from 'svelte-maplibre-gl';
   import MapLayerUnit from "./mapLayerUnit.svelte";
 
@@ -41,7 +41,7 @@
   </div>
   </div>
   <div class="mapPageUnit">
-    <Map />   
+    <UnemploymentMap/>   
   <!-- <MapLayerUnit /> -->
 </div>
 </div>
