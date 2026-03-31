@@ -112,7 +112,7 @@
     <div class="loading">{error}</div>
   {:else if geoData}
     <MapLibre
-      class="h-[70vh] min-h-[400px] w-full"
+      class="h-[100%] min-h-[100%] w-full"
       style="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
       zoom={4.5}
       center={{ lng: 26, lat: 65 }}
@@ -145,7 +145,7 @@
           }}
         />
 
-        <!---show the number when hovering over-->
+        <!---Unemployment percentage per province-->
         {#if hoveredFeature}
           <FeatureState id={hoveredFeature.id} state={{ hover: true }} />
           <Popup {lnglat} closeButton={false}>
@@ -190,6 +190,7 @@
 <style>
   .map-container {
     position: relative;
+    height: 100%;
     width: 100%;
     border-radius: 10px;
     overflow: hidden;
@@ -255,4 +256,6 @@
 </style>
 
 
-<!--for helo check https://svelte-maplibre-gl.mierune.dev/examples/hover-styles-->
+<!--the library used is svelte-mablibre-gl that is svelte 5 runes compatible not ordinary maplibre-->
+<!--the fetchdata function / api is ai generate if it fails replace with mockdata to fix--->
+<!--for help check https://svelte-maplibre-gl.mierune.dev/examples/hover-styles-->

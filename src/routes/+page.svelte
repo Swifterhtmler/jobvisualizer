@@ -6,11 +6,18 @@
 
 
 
-
+ let karttaValinta = $state("UnemploymentMap");
 
 
   let palkka = $state(3000);
 
+
+  function updateKarttaValinta() {
+    karttaValinta = "UnemploymentMap";
+    // console.log("karttavalinta", {karttaValinta});
+  }
+
+  
 
 </script>
 
@@ -39,9 +46,20 @@
      <label for="palkka">Palkka</label>
      <label for="palkka" style="margin-left: 1rem;">{palkka}</label>
   </div>
+  <div class="labelInput">
+  </div>
+  
+  <div class="buttondivUnit">
+  <button onclick={updateKarttaValinta}>Työttömyyskartta</button>
+  </div>
   </div>
   <div class="mapPageUnit">
-    <UnemploymentMap/>   
+    <!-- <UnemploymentMap/> -->
+    {#if karttaValinta === "UnemploymentMap"}
+      <UnemploymentMap />
+    {:else if karttaValinta === "something"}
+      <!--Fill this later on-->
+    {/if}   
   <!-- <MapLayerUnit /> -->
 </div>
 </div>
@@ -57,6 +75,21 @@ h1 {
     font-size: 3.2em;
     color: rgb(50, 120, 112);
     margin-left: 15px; 
+}
+
+button {
+    background-color: rgb(50, 120, 112);
+    color: white;
+    border: none;
+    padding: 6px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .header {
@@ -122,6 +155,16 @@ h1 {
     gap: 1rem;
 }
 
+.buttondivUnit {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(230, 232, 250);
+    padding: 10px;
+    width: 100%;
+}
+
 .copyrightUnit {
     width: 100%;
     height: 70px;
@@ -133,11 +176,12 @@ h1 {
 .labelInput {
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 3px;
     background-color: rgb(230, 235, 250);
     padding: 5px;
     margin-top: 10px;
     border-radius: 5px;
+    width: 100%;
 }
 
 
