@@ -1,5 +1,16 @@
 
 <script>
+  import Map from "./map.svelte";
+  import { MapLibre } from 'svelte-maplibre-gl';
+  import MapLayerUnit from "./mapLayerUnit.svelte";
+
+
+
+
+
+
+  let palkka = $state(3000);
+
 
 </script>
 
@@ -12,27 +23,39 @@
 <h1>Ammattomaatti</h1>
 <div class="subNavBar">
   <div class="subSubNavSection" >
-    <p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+    <p>Työttömyys <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a></p>
+    <p style="margin-left: 1rem;">Alakohtaiset erot <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a></p>
+
   </div>
 </div>
 </div>
 
 
-<div class="filtersPage">
 
+<div class="mainPageUnit">
+  <div class="filtersPage">
+  <div class="labelInput">
+     <input bind:value={palkka} type="range" min="0" max="20000" class="slider" id="palkka">
+     <label for="palkka">Palkka</label>
+     <label for="palkka" style="margin-left: 1rem;">{palkka}</label>
+  </div>
+  </div>
+  <div class="mapPageUnit">
+    <Map />   
+  <!-- <MapLayerUnit /> -->
+</div>
 </div>
 
-
+<div class="copyrightUnit"></div>
 
 
 
 
 <style>
 
-
 h1 {
     font-size: 3.2em;
-    color: rgb(80, 80, 80);
+    color: rgb(50, 120, 112);
     margin-left: 15px; 
 }
 
@@ -71,12 +94,52 @@ h1 {
 }
 
 .filtersPage {
-    width: 23em;
-    height: 100px;
+    width: 18em;
+    height: 80vh;
     margin-top: 1.0em;
     border: 1px black solid;
     border-radius: 10px;
+    background-color: rgb(220, 228, 235);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
+
+.mapPageUnit {
+    flex-grow: 1;
+    height: 80vh;
+    margin-top: 1.0em;
+    border: 1px black solid;
+    border-radius: 10px;
+    /* background-color: rgb(220, 228, 235); */
+}
+
+.mainPageUnit {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.copyrightUnit {
+    width: 100%;
+    height: 70px;
+    margin-top: 1.0em;
+    border-radius: 10px;
+    background-color: rgb(220, 228, 235);
+}
+
+.labelInput {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    background-color: rgb(230, 235, 250);
+    padding: 5px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
 
 @media (max-width: 600px) {
     .header {
@@ -95,6 +158,36 @@ h1 {
     .subSubNavSection {
         margin-bottom: 0.5em;
     }
+
+
+    .mainPageUnit {
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.mapPageUnit {
+    flex-grow: 1;
+    min-width: 100%;
+    height: 80vh;
+    margin-top: 1.0em;
+    border: 1px black solid;
+    border-radius: 10px;
+    background-color: rgb(220, 228, 235);
+}
+
+.filtersPage {
+    width: 100%;
+    height: 80vh;
+    margin-top: 1.0em;
+    border: 1px black solid;
+    border-radius: 10px;
+    background-color: rgb(220, 228, 235);
+}
+
+
 }
 
 
