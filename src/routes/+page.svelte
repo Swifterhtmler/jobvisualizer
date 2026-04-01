@@ -56,6 +56,7 @@
      <option ><input>
      <label for="palkka">Palkka</label>
      <label for="palkka" style="margin-left: 1rem;">{palkka}</label></option>
+     
   </div>
   </select>
   </div>
