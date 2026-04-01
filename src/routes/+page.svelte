@@ -1,6 +1,7 @@
 
 <script>
   import UnemploymentMap from "./unemploymentMap.svelte";
+  import UnemploymentPerMunicipalityState from "./unemploymentpermunicipalitystate.svelte";
   import { MapLibre } from 'svelte-maplibre-gl';
   import MapLayerUnit from "./mapLayerUnit.svelte";
 
@@ -14,6 +15,11 @@
 
   function updateKarttaValinta() {
     karttaValinta = "UnemploymentMap";
+    // console.log("karttavalinta", {karttaValinta});
+  }
+
+  function updateKarttaValintaKunnittain() {
+    karttaValinta = "UnemploymentPerMunicipalityState";
     // console.log("karttavalinta", {karttaValinta});
   }
 
@@ -40,28 +46,75 @@
 
 
 <div class="mainPageUnit">
-  <div class="filtersPage">
+  <div class="filtersPage">    
+<div class="filtersubUnitSub">   
+
+
+ <div class="filters">
+   <select> 
   <div class="labelInput">
-     <input bind:value={palkka} type="range" min="0" max="20000" class="slider" id="palkka">
+     <option ><input>
      <label for="palkka">Palkka</label>
-     <label for="palkka" style="margin-left: 1rem;">{palkka}</label>
+     <label for="palkka" style="margin-left: 1rem;">{palkka}</label></option>
   </div>
+  </select>
+  </div>
+
   <div class="labelInput">
+  </div>
+
+  <!-- <div class="buttondivUnit">
+    <button onclick={something}>Osa-aika työt</button>
+    <button onclick={something}>Koko aikatyöt</button>
+    <button onclick={something}>Julkisen sektorin työt</button>
+    <button onclick={something}>Yksityisen sektorin työt</button>
+  </div> -->
+
+  <div class="select">
+    <select >
+      <option value="Osa-aika työt">Osa-aika työt</option>
+      <option value="Koko aikatyöt">Koko aikatyöt</option>
+    </select>
+  </div>
+
+  <div class="select">
+    <select >
+      <option value="Julkisen sektorin työt">Julkisen sektorin työt</option>
+      <option value="Yksityisen sektorin työt">Yksityisen sektorin työt</option>
+    </select>
   </div>
   
+  <!-- <div class="buttondivUnit">
+  <button onclick={updateKarttaValinta}>Työttömyys maakunnittain</button>
+  </div>
   <div class="buttondivUnit">
-  <button onclick={updateKarttaValinta}>Työttömyyskartta</button>
+  <button onclick={updateKarttaValintaKunnittain}>Työttömyys kunnittain</button>
+  </div> -->
+
+  <div class="select"> 
+  <select bind:value={karttaValinta}>
+    <option value="UnemploymentMap">Työttömyys maakunnittain</option>
+    <option value="UnemploymentPerMunicipalityState">Työttömyys kunnittain</option>
+  </select>
   </div>
-  </div>
+
+</div>
+</div>
+
   <div class="mapPageUnit">
     <!-- <UnemploymentMap/> -->
     {#if karttaValinta === "UnemploymentMap"}
       <UnemploymentMap />
+    {:else if karttaValinta === "UnemploymentPerMunicipalityState"}
+      <UnemploymentPerMunicipalityState />
     {:else if karttaValinta === "something"}
-      <!--Fill this later on-->
+      <!---something-->
+      
     {/if}   
   <!-- <MapLayerUnit /> -->
 </div>
+
+
 </div>
 
 <div class="copyrightUnit"></div>
@@ -155,15 +208,42 @@ button {
     gap: 1rem;
 }
 
+.filtersubUnitSub {
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    align-items: center;
+    gap: 0.7rem;
+    width: 90%;
+}
+
+
+
 .buttondivUnit {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: top;
     align-items: center;
     background-color: rgb(230, 232, 250);
     padding: 10px;
     width: 100%;
+    border-radius: 5px;
 }
+
+.filters {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    background-color: rgb(230, 235, 250);
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+
+
+
+
 
 .copyrightUnit {
     width: 100%;
@@ -183,6 +263,12 @@ button {
     border-radius: 5px;
     width: 100%;
 }
+
+
+
+ 
+
+
 
 
 @media (max-width: 600px) {
@@ -229,9 +315,34 @@ button {
     border: 1px black solid;
     border-radius: 10px;
     background-color: rgb(220, 228, 235);
+  }
 }
 
 
+.select {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    background-color: rgb(230, 235, 250);
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+select {
+    all: unset;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #cec8c8;
+    background-color: rgb(50, 120, 112);
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+}
+
+select:hover {
+    background-color: rgb(30, 90, 80);
+    color: #fff;
 }
 
 
