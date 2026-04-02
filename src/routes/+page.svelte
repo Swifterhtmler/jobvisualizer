@@ -73,6 +73,7 @@
     <button onclick={something}>Yksityisen sektorin työt</button>
   </div> -->
 
+  <div class="nameandinputfield">
   <p style="margin-top: 1rem;">Työaika</p>
   <div class="select">
     <select >
@@ -80,8 +81,9 @@
       <option value="Koko aikatyöt">Koko aikatyöt</option>
     </select>
   </div>
+</div>
 
-
+ <div class="nameandinputfield">
   <p style="margin-top: 1rem;">Työnantaja</p>
   <div class="select">
     <select bind:value={karttaValinta}>
@@ -93,6 +95,7 @@
     <option value="PrivateIndividual">Yksityishenkilöt, kotitaloudet</option>
     </select>
   </div>
+</div>
   
   <!-- <div class="buttondivUnit">
   <button onclick={updateKarttaValinta}>Työttömyys maakunnittain</button>
@@ -100,14 +103,15 @@
   <div class="buttondivUnit">
   <button onclick={updateKarttaValintaKunnittain}>Työttömyys kunnittain</button>
   </div> -->
-
-  <p style="margin-top: 1rem;">Työllisyys</p>
+   <div class="nameandinputfield">
+  <p style="margin-top: 1rem;">Työttömyys</p>
   <div class="select"> 
   <select bind:value={karttaValinta}>
     <option value="UnemploymentMap">Työttömyys maakunnittain</option>
     <option value="UnemploymentPerMunicipalityState">Työttömyys kunnittain</option>
   </select>
   </div>
+</div>
 
 </div>
 </div>
@@ -210,6 +214,13 @@ button {
     flex-direction: column;
 }
 
+p {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+    font-weight: 580;
+    color: rgb(80, 120, 112);
+  }
+
+
 .mapPageUnit {
     flex-grow: 1;
     height: 80vh;
@@ -236,6 +247,16 @@ button {
     width: 90%;
 }
 
+
+.nameandinputfield {
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    align-items: center;
+    background-color: rgb(230, 232, 250);
+    width: 100%;
+    border-radius: 5px;
+}
 
 
 .buttondivUnit {

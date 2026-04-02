@@ -10,6 +10,7 @@
     Popup
   } from 'svelte-maplibre-gl';
   import 'maplibre-gl/dist/maplibre-gl.css';
+  import { get } from 'svelte/store';
 
   async function fetchEmploymentData(): Promise<Record<string, number>> {
     const res = await fetch(
@@ -45,6 +46,8 @@
         })
       }
     );
+
+
 
     const data = await res.json();
 
