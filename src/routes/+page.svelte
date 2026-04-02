@@ -4,7 +4,12 @@
   import UnemploymentPerMunicipalityState from "./unemploymentpermunicipalitystate.svelte";
   import { MapLibre } from 'svelte-maplibre-gl';
   import MapLayerUnit from "./mapLayerUnit.svelte";
-
+  import PublicJobs from "./publicJobs.svelte";
+  import PrivateJobs from "./privateJobs.svelte";
+  import HealthServiceUnit from "./healthserviceunit.svelte";
+  import Municipalityjobs from "./municipalityjobs.svelte";
+  import Governmentjobs from "./governmentjobs.svelte";
+  import PrivateIndividual from "./privateIndividual.svelte";
 
 
  let karttaValinta = $state("UnemploymentMap");
@@ -68,6 +73,7 @@
     <button onclick={something}>Yksityisen sektorin työt</button>
   </div> -->
 
+  <p style="margin-top: 1rem;">Työaika</p>
   <div class="select">
     <select >
       <option value="Osa-aika työt">Osa-aika työt</option>
@@ -75,10 +81,16 @@
     </select>
   </div>
 
+
+  <p style="margin-top: 1rem;">Työnantaja</p>
   <div class="select">
-    <select >
-      <option value="Julkisen sektorin työt">Julkisen sektorin työt</option>
-      <option value="Yksityisen sektorin työt">Yksityisen sektorin työt</option>
+    <select bind:value={karttaValinta}>
+    <option value="PublicJobs">Kaikki työt</option>
+    <option value="PrivateJobs">Yksityiset työt</option>
+    <option value="HealthServiceUnit">Hyvinvointialue työt</option>
+    <option value="Municipalityjobs">Kunnalliset työt</option>
+    <option value="Governmentjobs">Valtion työt</option>
+    <option value="PrivateIndividual">Yksityishenkilöt, kotitaloudet</option>
     </select>
   </div>
   
@@ -89,6 +101,7 @@
   <button onclick={updateKarttaValintaKunnittain}>Työttömyys kunnittain</button>
   </div> -->
 
+  <p style="margin-top: 1rem;">Työllisyys</p>
   <div class="select"> 
   <select bind:value={karttaValinta}>
     <option value="UnemploymentMap">Työttömyys maakunnittain</option>
@@ -100,17 +113,25 @@
 </div>
 
   <div class="mapPageUnit">
-    <!-- <UnemploymentMap/> -->
     {#if karttaValinta === "UnemploymentMap"}
       <UnemploymentMap />
     {:else if karttaValinta === "UnemploymentPerMunicipalityState"}
       <UnemploymentPerMunicipalityState />
-    {:else if karttaValinta === "something"}
-      <!---something-->
-      
-    {/if}   
-  <!-- <MapLayerUnit /> -->
-</div>
+    {:else if karttaValinta === "PublicJobs"}
+      <PublicJobs />
+    {:else if karttaValinta === "PrivateJobs"}
+      <PrivateJobs />
+    {:else if karttaValinta === "HealthServiceUnit"}
+      <HealthServiceUnit />
+    {:else if karttaValinta === "Municipalityjobs"}
+      <Municipalityjobs /> 
+    {:else if karttaValinta === "Governmentjobs"}
+      <Governmentjobs />
+    {:else if karttaValinta === "PrivateIndividual"}
+      <PrivateIndividual />  
+    {/if}
+    <!-- <MapLayerUnit /> -->
+  </div>
 
 
 </div>
