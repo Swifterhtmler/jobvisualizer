@@ -51,14 +51,11 @@
 
 
  <div class="filters">
-   <select> 
   <div class="labelInput">
-     <option ><input>
+    <input bind:value={palkka} type="range" min="0" max="20000" step="50"/>
      <label for="palkka">Palkka</label>
-     <label for="palkka" style="margin-left: 1rem;">{palkka}</label></option>
-     
+     <label for="palkka" style="margin-left: 1rem;">{palkka}</label>
   </div>
-  </select>
   </div>
 
   <div class="labelInput">
