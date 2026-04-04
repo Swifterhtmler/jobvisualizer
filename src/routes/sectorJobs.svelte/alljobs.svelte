@@ -8,6 +8,20 @@
 
   const dataMonth = getLatestDataMonth();
 
+  const employerSectors = [
+    { code: 'SSS', label: 'Yhteensä' },
+    { code: '01', label: 'Valtio' },
+    { code: '04', label: 'Yritys' },
+    { code: '02', label: 'Kunta' },
+    { code: '05', label: 'Yksityishenkilö' },
+    { code: '07', label: 'Hyvinvointialue' },
+    { code: 'X', label: 'Tuntematon' }
+  ];
+
+  function selectEmployerSector(code: string) {
+    jobtitledata.texttwo = code;
+  }
+
   const maakuntaCentroids: Record<string, { coords: [number, number]; name: string }> = {
     '01': { coords: [25.0, 60.3],  name: 'Uusimaa' },
     '02': { coords: [22.3, 60.8],  name: 'Varsinais-Suomi' },
@@ -30,7 +44,7 @@
     '21': { coords: [20.0, 60.2],  name: 'Ahvenanmaa' },
   };
 
-  async function fetchVacancyData(ammattiryhmä: string): Promise<Record<string, number>> {
+  async function fetchVacancyData(ammattiryhmä: string, työnantajanSektori: string): Promise<Record<string, number>> {
     const res = await fetch(
       'https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/tyonv/statfin_tyonv_pxt_12tv.px',
       {
@@ -43,6 +57,13 @@
               selection: {
                 filter: 'item',
                 values: ['MK01','MK02','MK04','MK05','MK06','MK07','MK08','MK09','MK10','MK11','MK12','MK13','MK14','MK15','MK16','MK17','MK18','MK19','MK21']
+              }
+            },
+            {
+              code: 'Työnantajan sektori',
+              selection: {
+                filter: 'item',
+                values: [työnantajanSektori]
               }
             },
             {
@@ -66,7 +87,12 @@
       }
     );
 
-    const data = await res.json();
+    const text = await res.text();
+    if (!res.ok) {
+      throw new Error(`Bad Request (${res.status}): ${text}`);
+    }
+
+    const data = JSON.parse(text);
     const regions = data.dimension.Alue.category.index;
     const values = data.value;
 
@@ -96,10 +122,11 @@
 
   $effect(() => {
     const currentAmmattiryhmä = jobtitledata.text; // tracked by Svelte
+    const currentTyonantaja = jobtitledata.texttwo || 'SSS';
     geoData = null;
     error = null;
 
-    fetchVacancyData(currentAmmattiryhmä)
+    fetchVacancyData(currentAmmattiryhmä, currentTyonantaja)
       .then(vacancies => {
         geoData = buildGeoData(vacancies);
       })
@@ -247,6 +274,33 @@
     font-size: 0.7rem;
     color: #666;
     z-index: 10;
+  }
+
+  .sector-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    z-index: 10;
+  }
+
+  .sector-button {
+    padding: 0.55rem 0.95rem;
+    border: 1px solid rgba(50, 120, 112, 0.6);
+    border-radius: 999px;
+    background: #fff;
+    color: rgb(50, 120, 112);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .sector-button:hover,
+  .sector-button.selected {
+    background: rgb(50, 120, 112);
+    color: #fff;
   }
 
   .popup strong {

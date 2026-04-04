@@ -1,4 +1,3 @@
-
 <script>
   import UnemploymentMap from "./unemploymentMap.svelte";
   import UnemploymentPerMunicipalityState from "./unemploymentpermunicipalitystate.svelte";
@@ -47,8 +46,25 @@
 <h1>Ammattomaatti</h1>
 <div class="subNavBar">
   <div class="subSubNavSection" >
-    <p>Työttömyys <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a></p>
-    <p style="margin-left: 1rem;">Alakohtaiset erot <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a></p>
+    <!-- <div class="nameandinputfield"> -->
+  <!-- <p style="margin-top: 1rem;">Työttömyys</p> -->
+  <!-- <div class="select">  -->
+  <select onchange={(event) => karttaValinta = event.target.value}>
+    <option value="UnemploymentMap">Työttömyys maakunnittain</option>
+    <option value="UnemploymentPerMunicipalityState">Työttömyys kunnittain</option>
+  </select>
+  <!-- </div> -->
+<!-- </div> -->
+    <!-- <p style="margin-left: 1rem;">Alakohtaiset erot <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a></p>
+      -->
+    <select onchange={(event) => karttaValinta = event.target.value}>
+    <option value="PublicJobs">Kaikki työt</option>
+    <option value="PrivateJobs">Yksityiset työt</option>
+    <option value="HealthServiceUnit">Hyvinvointialue työt</option>
+    <option value="Municipalityjobs">Kunnalliset työt</option>
+    <option value="Governmentjobs">Valtion työt</option>
+    <option value="PrivateIndividual">Yksityishenkilöt, kotitaloudet</option>
+    </select>
 
   </div>
 </div>
@@ -95,7 +111,7 @@
   <p style="margin-top: 1rem;">Ammattiryhmä</p>
   <div class="select">
   <select onchange={() => karttaValinta = 'Alljobs'} bind:value={jobtitledata.text}>
-  <option value="SSS">Kaikki Yhteensä</option>
+  <!-- <option value="SSS">Kaikki Yhteensä</option> -->
   <option value="11">Johtajat, ylimmät virkamiehet ja järjestöjen jt</option>
   <option value="12">Hallintojohtajat ja kaupalliset johtajat</option>
   <option value="13">Tuotantotoiminnan, yhteiskunnan peruspalvelujen jt</option>
@@ -151,34 +167,36 @@
 </div>
 
 
- <div class="nameandinputfield">
-  <p style="margin-top: 1rem;">Työnantaja valitulla sektorilla</p>
+<div class="nameandinputfield">
+  <p style="margin-top: 1rem;">Työnantaja ammattiryhmällä</p>
   <div class="select">
     <select bind:value={jobtitledata.texttwo} onchange={() => karttaValinta = 'Alljobs'}>
-    <option value="SSS">Kaikki työt</option>
-    <option value="05">Yksityiset työt</option>
-    <option value="07">Hyvinvointialue työt</option>
-    <option value="02">Kunnalliset työt</option>
-    <option value="01">Valtion työt</option>
-    <option value="05">Yksityishenkilöt, kotitaloudet</option>
+      <option value="SSS">Yhteensä</option>
+      <option value="01">Valtio</option>
+      <option value="02">Kunta</option>
+      <option value="03">Yksityinen työnant., yhteisö pl.yr</option>
+      <option value="04">Yritys</option>
+      <option value="05">Yksityishenkilö, kotitalous</option>
+      <option value="06">Kuntayhtymä, kuntainliitto</option>
+      <option value="07">Hyvinvointialue</option>
+      <option value="X">Tuntematon</option>
     </select>
   </div>
 </div>
 
-
- <div class="nameandinputfield">
+<!-- <div class="nameandinputfield">
   <p style="margin-top: 1rem;">Työnantaja</p>
   <div class="select">
-    <select bind:value={karttaValinta}>
-    <option value="PublicJobs">Kaikki työt</option>
-    <option value="PrivateJobs">Yksityiset työt</option>
-    <option value="HealthServiceUnit">Hyvinvointialue työt</option>
-    <option value="Municipalityjobs">Kunnalliset työt</option>
-    <option value="Governmentjobs">Valtion työt</option>
-    <option value="PrivateIndividual">Yksityishenkilöt, kotitaloudet</option>
+    <select onchange={(event) => karttaValinta = event.target.value}>
+      <option value="PublicJobs">Kaikki työt</option>
+      <option value="PrivateJobs">Yksityiset työt</option>
+      <option value="HealthServiceUnit">Hyvinvointialue työt</option>
+      <option value="Municipalityjobs">Kunnalliset työt</option>
+      <option value="Governmentjobs">Valtion työt</option>
+      <option value="PrivateIndividual">Yksityishenkilöt, kotitaloudet</option>
     </select>
   </div>
-</div>
+</div> -->
   
   <!-- <div class="buttondivUnit">
   <button onclick={updateKarttaValinta}>Työttömyys maakunnittain</button>
@@ -186,7 +204,7 @@
   <div class="buttondivUnit">
   <button onclick={updateKarttaValintaKunnittain}>Työttömyys kunnittain</button>
   </div> -->
-   <div class="nameandinputfield">
+   <!-- <div class="nameandinputfield">
   <p style="margin-top: 1rem;">Työttömyys</p>
   <div class="select"> 
   <select bind:value={karttaValinta}>
@@ -194,7 +212,7 @@
     <option value="UnemploymentPerMunicipalityState">Työttömyys kunnittain</option>
   </select>
   </div>
-</div>
+</div> -->
 
 </div>
 </div>
