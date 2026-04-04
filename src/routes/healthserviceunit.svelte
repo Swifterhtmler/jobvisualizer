@@ -3,6 +3,9 @@
   import { CircleLayer, MapLibre, GeoJSONSource, SymbolLayer, Popup } from 'svelte-maplibre-gl';
   import maplibregl from 'maplibre-gl';
   import 'maplibre-gl/dist/maplibre-gl.css';
+  import { getLatestDataMonth, formatMonthLabel } from '$lib/utils/dataMonth';
+
+  const dataMonth = getLatestDataMonth(); // '2026M02'
 
   // Maakunta centroids [lng, lat]
   const maakuntaCentroids: Record<string, { coords: [number, number]; name: string }> = {
@@ -49,7 +52,7 @@
             },
             {
               code: 'Kuukausi',
-              selection: { filter: 'item', values: ['2026M02'] }
+              selection: { filter: 'item', values: [dataMonth] }
             },
             {
               code: 'Tiedot',
@@ -168,7 +171,7 @@
     </MapLibre>
 
     <div class="data-source">
-      Lähde: Tilastokeskus / TEM, 2026/02
+      Lähde: Tilastokeskus / TEM, {formatMonthLabel(dataMonth)}
     </div>
   {:else}
     <div class="loading">Ladataan...</div>

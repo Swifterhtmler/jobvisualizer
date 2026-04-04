@@ -10,6 +10,9 @@
     Popup
   } from 'svelte-maplibre-gl';
   import 'maplibre-gl/dist/maplibre-gl.css';
+  import { getLatestDataMonth, formatMonthLabel } from '$lib/utils/dataMonth';
+   
+  const dataMonth = getLatestDataMonth(); // '2026M02'
 
  
 async function fetchEmploymentData(): Promise<Record<string, number>> {
@@ -29,7 +32,7 @@ async function fetchEmploymentData(): Promise<Record<string, number>> {
           },
           {
             code: 'Kuukausi',
-            selection: { filter: 'item', values: ['2026M02'] }
+            selection: { filter: 'item', values: [dataMonth] }
           },
           {
             code: 'Tiedot',
@@ -58,7 +61,7 @@ async function fetchEmploymentData(): Promise<Record<string, number>> {
   let hoveredFeature: maplibregl.MapGeoJSONFeature | undefined = $state.raw();
   let lnglat = $state.raw(new maplibregl.LngLat(0, 0));
   let geoData: any = $state(null);
-  let dataMonth = $state('2026M02');
+  // let dataMonth = $state('2026M02');
   let error = $state<string | null>(null);
 
   onMount(async () => {

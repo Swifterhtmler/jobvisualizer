@@ -1,13 +1,13 @@
+
 <script lang="ts">
-  import { onMount } from 'svelte';
   import { CircleLayer, MapLibre, GeoJSONSource, SymbolLayer, Popup } from 'svelte-maplibre-gl';
   import maplibregl from 'maplibre-gl';
   import 'maplibre-gl/dist/maplibre-gl.css';
   import { getLatestDataMonth, formatMonthLabel } from '$lib/utils/dataMonth';
+  import { jobtitledata } from '$lib/stores/jobSelection.svelte';
 
-   const dataMonth = getLatestDataMonth(); // '2026M02'
+  const dataMonth = getLatestDataMonth();
 
-  // Maakunta centroids [lng, lat]
   const maakuntaCentroids: Record<string, { coords: [number, number]; name: string }> = {
     '01': { coords: [25.0, 60.3],  name: 'Uusimaa' },
     '02': { coords: [22.3, 60.8],  name: 'Varsinais-Suomi' },
@@ -30,7 +30,7 @@
     '21': { coords: [20.0, 60.2],  name: 'Ahvenanmaa' },
   };
 
-  async function fetchVacancyData(): Promise<Record<string, number>> {
+  async function fetchVacancyData(ammattiryhmä: string): Promise<Record<string, number>> {
     const res = await fetch(
       'https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/tyonv/statfin_tyonv_pxt_12tv.px',
       {
@@ -46,9 +46,11 @@
               }
             },
             {
-              code: 'Työnantajan sektori',
-              selection: { filter: 'item', values: ['02'] }
-              // 1-7
+              code: 'Ammattiryhmä',
+              selection: {
+                filter: 'item',
+                values: [ammattiryhmä]
+              }
             },
             {
               code: 'Kuukausi',
@@ -76,35 +78,35 @@
     return result;
   }
 
+  function buildGeoData(vacancies: Record<string, number>) {
+    return {
+      type: 'FeatureCollection',
+      features: Object.entries(maakuntaCentroids).map(([code, { coords, name }]) => ({
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: coords },
+        properties: { name, vacancies: vacancies[code] ?? 0, code }
+      }))
+    };
+  }
+
   let geoData: any = $state(null);
   let hoveredFeature: any = $state(null);
   let lnglat = $state.raw(new maplibregl.LngLat(0, 0));
   let error = $state<string | null>(null);
 
-  onMount(async () => {
-    try {
-      const vacancies = await fetchVacancyData();
+  $effect(() => {
+    const currentAmmattiryhmä = jobtitledata.text; // tracked by Svelte
+    geoData = null;
+    error = null;
 
-      // Build GeoJSON point features from centroids + vacancy data
-      geoData = {
-        type: 'FeatureCollection',
-        features: Object.entries(maakuntaCentroids).map(([code, { coords, name }]) => ({
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: coords
-          },
-          properties: {
-            name,
-            vacancies: vacancies[code] ?? 0,
-            code
-          }
-        }))
-      };
-    } catch (err) {
-      console.error('Load failed:', err);
-      error = 'Datan lataus epäonnistui.';
-    }
+    fetchVacancyData(currentAmmattiryhmä)
+      .then(vacancies => {
+        geoData = buildGeoData(vacancies);
+      })
+      .catch(err => {
+        console.error('Load failed:', err);
+        error = 'Datan lataus epäonnistui.';
+      });
   });
 </script>
 
@@ -119,7 +121,6 @@
       center={{ lng: 26, lat: 65 }}
     >
       <GeoJSONSource data={geoData}>
-        <!-- Colored circle sized by vacancy count -->
         <CircleLayer
           paint={{
             'circle-color': [
@@ -147,7 +148,6 @@
           onmouseleave={() => hoveredFeature = null}
         />
 
-        <!-- Label inside circle -->
         <SymbolLayer
           layout={{
             'text-field': ['get', 'vacancies'],

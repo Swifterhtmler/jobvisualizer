@@ -3,6 +3,7 @@
   import { MapLibre, GeoJSONSource, FillLayer, LineLayer, Popup } from 'svelte-maplibre-gl';
   import 'maplibre-gl/dist/maplibre-gl.css';
 
+
   // --- Mock unemployment data ---
   const unemploymentKunnat = {
     '091': 8.2, '049': 5.1, '092': 6.3, '837': 12.4, '853': 15.5,

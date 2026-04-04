@@ -11,9 +11,14 @@
   import Governmentjobs from "./governmentjobs.svelte";
   import PrivateIndividual from "./privateIndividual.svelte";
 
+ // global variables with state
+  import { jobtitledata } from '$lib/stores/jobSelection.svelte';
+  
+  import Alljobs from "./sectorJobs.svelte/alljobs.svelte";
 
  let karttaValinta = $state("UnemploymentMap");
 
+ let activeGroup = $state("tyottomyys"); 
 
   let palkka = $state(3000);
 
@@ -29,6 +34,7 @@
   }
 
   
+
 
 </script>
 
@@ -53,13 +59,13 @@
 <div class="mainPageUnit">
   <div class="filtersPage">    
 <div class="filtersubUnitSub">   
-
-
  <div class="filters">
+ <div id="salaryfilter">
   <div class="labelInput">
     <input bind:value={palkka} type="range" min="0" max="20000" step="50"/>
      <label for="palkka">Palkka</label>
-     <label for="palkka" style="margin-left: 1rem;">{palkka}</label>
+     <label for="palkka" style="margin-left: 0.3rem;">{palkka}</label>
+  </div>
   </div>
   </div>
 
@@ -73,6 +79,8 @@
     <button onclick={something}>Yksityisen sektorin työt</button>
   </div> -->
 
+
+
   <div class="nameandinputfield">
   <p style="margin-top: 1rem;">Työaika</p>
   <div class="select">
@@ -82,6 +90,81 @@
     </select>
   </div>
 </div>
+
+<div class="nameandinputfield">
+  <p style="margin-top: 1rem;">Ammattiryhmä</p>
+  <div class="select">
+  <select onchange={() => karttaValinta = 'Alljobs'} bind:value={jobtitledata.text}>
+  <option value="SSS">Kaikki Yhteensä</option>
+  <option value="11">Johtajat, ylimmät virkamiehet ja järjestöjen jt</option>
+  <option value="12">Hallintojohtajat ja kaupalliset johtajat</option>
+  <option value="13">Tuotantotoiminnan, yhteiskunnan peruspalvelujen jt</option>
+  <option value="14">Hotelli-, ravintola-, kaupan, muiden palvelujen jt</option>
+  <option value="21">Luonnontieteiden ja tekniikan erityisasiantuntijat</option>
+  <option value="22">Terveydenhuollon erityisasiantuntijat</option>
+  <option value="23">Opettajat ja muut opetusalan erityisasiantuntijat</option>
+  <option value="24">Liike-elämän ja hallinnon erityisasiantuntijat</option>
+  <option value="25">Tieto- ja viestintäteknologian erityisasiantuntijat</option>
+  <option value="26">Lainopilliset, sosiaalialan ja kulttuurialan er.</option>
+  <option value="31">Luonnontieteiden ja tekniikan asiantuntijat</option>
+  <option value="32">Terveydenhuollon asiantuntijat</option>
+  <option value="33">Liike-elämän ja hallinnon asiantuntijat</option>
+  <option value="34">Lakiavustajat ja sosiaali- ja kulttuurialan a.</option>
+  <option value="35">Informaatio- ja tietoliikenneteknologian a.</option>
+  <option value="41">Toimistotyöntekijät</option>
+  <option value="42">Asiakaspalvelutyöntekijät</option>
+  <option value="43">Laskennan ja varastoinnin toimistotyöntekijät</option>
+  <option value="44">Muut toimisto- ja asiakaspalvelutyöntekijät</option>
+  <option value="51">Palvelutyöntekijät</option>
+  <option value="52">Myyjät, kauppiaat ym.</option>
+  <option value="53">Hoivapalvelun ja terveydenhuollon työntekijät</option>
+  <option value="54">Suojelu- ja vartiointityöntekijät</option>
+  <option value="61">Maanviljelijät ja eläintenkasvattajat ym.</option>
+  <option value="62">Metsä- ja kalatalouden työntekijät</option>
+  <option value="71">Rakennustyöntekijät ym. (pl. sähköasentajat)</option>
+  <option value="72">Konepaja- ja valimotyöntt, asentajat ja korjaajat</option>
+  <option value="73">Käsityötuotevalmistajat, hienomek., painoalan tt</option>
+  <option value="74">Sähkö- ja elektroniikka-alan työntekijät</option>
+  <option value="75">Elintarv.-,puutyö- ,vaatetus-, jalkinealan valm.tt</option>
+  <option value="81">Prosessityöntekijät</option>
+  <option value="82">Teollisuustuotteiden kokoonpanijat</option>
+  <option value="83">Kuljetustyöntekijät</option>
+  <option value="91">Siivoojat, kotiapulaiset ja muut puhdistustt</option>
+  <option value="92">Maa-, metsä- ja kalatalouden avustavat työntekijät</option>
+  <option value="93">Teollisuuden ja rakentamisen avustavat työntekijät</option>
+  <option value="94">Avustavat keittiö- ja ruokatyöntekijät</option>
+  <option value="95">Katumyyjät, kengänkiillottajat ym.</option>
+  <option value="96">Katujen puhtaanapidon ja jätehuollon työntekijät</option>
+  <option value="01">Upseerit</option>
+  <option value="02">Aliupseerit</option>
+  <option value="03">Sotilasammattihenkilöstö</option>
+  <option value="X0">Yrittäjät</option>
+  <option value="X1">Opiskelijat</option>
+  <option value="X2">Ei ammattia</option>
+  <option value="X3">Ammattia vaihtavat</option>
+  <option value="X4">Vastavalmistuneet</option>
+  <option value="X5">Valmennukset</option>
+  <option value="X6">Koulutukset, muu kuin ammatillinen</option>
+  <option value="X9">Määrittelemättömät ja poistetut luokat</option>
+</select>
+  </div>
+</div>
+
+
+ <div class="nameandinputfield">
+  <p style="margin-top: 1rem;">Työnantaja valitulla sektorilla</p>
+  <div class="select">
+    <select bind:value={jobtitledata.texttwo} onchange={() => karttaValinta = 'Alljobs'}>
+    <option value="SSS">Kaikki työt</option>
+    <option value="05">Yksityiset työt</option>
+    <option value="07">Hyvinvointialue työt</option>
+    <option value="02">Kunnalliset työt</option>
+    <option value="01">Valtion työt</option>
+    <option value="05">Yksityishenkilöt, kotitaloudet</option>
+    </select>
+  </div>
+</div>
+
 
  <div class="nameandinputfield">
   <p style="margin-top: 1rem;">Työnantaja</p>
@@ -133,6 +216,8 @@
       <Governmentjobs />
     {:else if karttaValinta === "PrivateIndividual"}
       <PrivateIndividual />  
+    {:else if karttaValinta === "Alljobs"}
+     <Alljobs />  
     {/if}
     <!-- <MapLayerUnit /> -->
   </div>
@@ -153,7 +238,7 @@ h1 {
     margin-left: 15px; 
 }
 
-button {
+/* button {
     background-color: rgb(50, 120, 112);
     color: white;
     border: none;
@@ -166,7 +251,7 @@ button {
     border-radius: 5px;
     cursor: pointer;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
+} */
 
 .header {
     width: 100%; 
@@ -245,7 +330,9 @@ p {
     align-items: center;
     gap: 0.7rem;
     width: 90%;
+    margin-top: 10px;
 }
+
 
 
 .nameandinputfield {
@@ -259,7 +346,7 @@ p {
 }
 
 
-.buttondivUnit {
+/* .buttondivUnit {
     display: flex;
     flex-direction: column;
     justify-content: top;
@@ -268,7 +355,9 @@ p {
     padding: 10px;
     width: 100%;
     border-radius: 5px;
-}
+} */
+
+
 
 .filters {
     display: flex;
@@ -296,17 +385,19 @@ p {
 .labelInput {
     display: flex;
     flex-direction: row;
-    gap: 3px;
+    gap: 2px;
     background-color: rgb(230, 235, 250);
     padding: 5px;
     margin-top: 10px;
     border-radius: 5px;
     width: 100%;
+    overflow-x: hidden;
 }
 
 
 
  
+
 
 
 
@@ -384,6 +475,7 @@ select:hover {
     background-color: rgb(30, 90, 80);
     color: #fff;
 }
+
 
 
 

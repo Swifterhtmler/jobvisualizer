@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import maplibregl from 'maplibre-gl';
+
   import {
     MapLibre,
     GeoJSONSource,
@@ -10,7 +11,9 @@
     Popup
   } from 'svelte-maplibre-gl';
   import 'maplibre-gl/dist/maplibre-gl.css';
-  import { get } from 'svelte/store';
+  // import { get } from 'svelte/store';
+    import { getLatestDataMonth, formatMonthLabel } from '$lib/utils/dataMonth';
+    const dataMonth = getLatestDataMonth(); // '2026M02'
 
   async function fetchEmploymentData(): Promise<Record<string, number>> {
     const res = await fetch(
@@ -31,7 +34,7 @@
               code: 'Kuukausi',
               selection: {
                 filter: 'item',
-                values: ['2026M02']
+                values: [dataMonth]
               }
             },
             {
@@ -66,7 +69,7 @@
   let hoveredFeature: maplibregl.MapGeoJSONFeature | undefined = $state.raw();
   let lnglat = $state.raw(new maplibregl.LngLat(0, 0));
   let geoData: any = $state(null);
-  let dataMonth = $state('2026M02');
+  // let dataMonth = $state('2026M02');
   let error = $state<string | null>(null);
 
   onMount(async () => {
