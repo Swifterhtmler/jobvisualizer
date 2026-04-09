@@ -1,5 +1,6 @@
 <svelte:head>
-  <title>Ammattomaatti - Tietosuojakäytäntö</title>
+  <title>Tietosuojakäytäntö - Ammattomaatti</title>
+  <meta name="description" content="Ammattomaatin tietosuojakäytäntö. Ammattomaatti ei kerää henkilötietoja käyttäjistä vaan käyttää Titlastokeskus API:ta työpaikkatietoihin." />
 </svelte:head>
 
 <div class="privacy-page">

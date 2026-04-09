@@ -39,13 +39,16 @@
 
 
 <svelte:head>
-  <title>Ammattomaatti</title>
+  <title>Ammattomaatti - Työpaikat &amp; Työttömyys Suomessa</title>
+  <meta name="description" content="Ammattomaatti näyttää avoimet työpaikat, työttömyysasteet ja työnhakutiedot Suomessa interaktiivisen kartan avulla. Tutki työmarkkinoita maakunnittain ja kunnittain." />
 </svelte:head>
 
 <div class="header">
-<h1>Ammattomaatti</h1>
+<div>
+  <h1>Ammattomaatti</h1>
+  <p class="tagline">Suomalainen työpaikka- ja työttömyystietojen visualisointityökalu</p>
+</div>
 <div class="subNavBar">
-
     <!-- <div class="nameandinputfield"> -->
   <!-- <p style="margin-top: 1rem;">Työttömyys</p> -->
   <!-- <div class="select">  -->
@@ -255,6 +258,15 @@ h1 {
     margin-left: 15px; 
 }
 
+.tagline {
+    font-size: 1rem;
+    color: rgb(100, 100, 100);
+    margin-left: 15px;
+    margin-top: -10px;
+    margin-bottom: 0;
+    font-weight: 400;
+}
+
 /* button {
     background-color: rgb(50, 120, 112);
     color: white;
@@ -272,12 +284,13 @@ h1 {
 
 .header {
     width: 100%; 
-    height: 86px;
+    height: auto;
     display: flex;
-    justify-content: left;
+    justify-content: space-between;
     align-items: center;
     border-radius: 10px;
     background-color: rgb(220, 228, 235);
+    flex-wrap: wrap;
 }
 
 .subNavBar {
