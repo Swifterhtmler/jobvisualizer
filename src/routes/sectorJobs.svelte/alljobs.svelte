@@ -8,6 +8,12 @@
 
   const dataMonth = getLatestDataMonth();
 
+  // const optionsforemploybilitylenght = [
+  //   { code: 'SSS', label: 'total' },
+  //   { code: '1', label: 'fulltime' },
+  //   { code: '2', label: 'parttime' },
+  // ]; 
+
   const employerSectors = [
     { code: 'SSS', label: 'Yhteensä' },
     { code: '01', label: 'Valtio' },
@@ -73,6 +79,13 @@
                 values: [ammattiryhmä]
               }
             },
+            //   {
+            // "code": "Palkansaajan työaika",
+            // "selection": {
+            // "filter": "item",
+            // "values": [työaika]
+            //   }
+            // },
             {
               code: 'Kuukausi',
               selection: { filter: 'item', values: [dataMonth] }
@@ -123,10 +136,12 @@
   $effect(() => {
     const currentAmmattiryhmä = jobtitledata.text; // tracked by Svelte
     const currentTyonantaja = jobtitledata.texttwo || 'SSS';
+//     const currentTyöaika = jobtitledata.textthree || 'SSS';
+
     geoData = null;
     error = null;
 
-    fetchVacancyData(currentAmmattiryhmä, currentTyonantaja)
+    fetchVacancyData(currentAmmattiryhmä, currentTyonantaja/* , currentTyöaika */)
       .then(vacancies => {
         geoData = buildGeoData(vacancies);
       })
@@ -207,10 +222,10 @@
   <div class="legend">
     <div class="legend-title">Avoimia työpaikkoja</div>
     {#each [
-      { color: '#80CBC4', label: '< 1 000' },
-      { color: '#00897B', label: '1 000–5 000' },
-      { color: '#EF6C5B', label: '5 000–10 000' },
-      { color: '#B71C1C', label: '> 10 000' },
+      { color: '#80CBC4', label: '< 10' },
+      { color: '#00897B', label: '10–500' },
+      { color: '#EF6C5B', label: '500–5000' },
+      { color: '#B71C1C', label: '> 5000' },
     ] as item}
       <div class="legend-row">
         <span class="legend-swatch" style="background:{item.color}"></span>
@@ -275,7 +290,7 @@
     color: #666;
     z-index: 10;
   }
-
+/* 
   .sector-buttons {
     display: flex;
     flex-wrap: wrap;
@@ -284,9 +299,9 @@
     background: rgba(255, 255, 255, 0.95);
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     z-index: 10;
-  }
+  } */
 
-  .sector-button {
+  /* .sector-button {
     padding: 0.55rem 0.95rem;
     border: 1px solid rgba(50, 120, 112, 0.6);
     border-radius: 999px;
@@ -295,13 +310,13 @@
     cursor: pointer;
     font-size: 0.85rem;
     transition: background-color 0.2s ease, color 0.2s ease;
-  }
+  }  */
 
-  .sector-button:hover,
+  /* .sector-button:hover,
   .sector-button.selected {
     background: rgb(50, 120, 112);
     color: #fff;
-  }
+  } */
 
   .popup strong {
     font-size: 0.95rem;

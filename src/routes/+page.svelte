@@ -45,7 +45,7 @@
 <div class="header">
 <h1>Ammattomaatti</h1>
 <div class="subNavBar">
-  <div class="subSubNavSection" >
+
     <!-- <div class="nameandinputfield"> -->
   <!-- <p style="margin-top: 1rem;">Työttömyys</p> -->
   <!-- <div class="select">  -->
@@ -65,8 +65,6 @@
     <option value="Governmentjobs">Valtion työt</option>
     <option value="PrivateIndividual">Yksityishenkilöt, kotitaloudet</option>
     </select>
-
-  </div>
 </div>
 </div>
 
@@ -74,19 +72,13 @@
 
 <div class="mainPageUnit">
   <div class="filtersPage">    
+    <p style="margin-top: 10px;">Avoimet työpaikat</p>
 <div class="filtersubUnitSub">   
- <div class="filters">
- <div id="salaryfilter">
-  <div class="labelInput">
-    <input bind:value={palkka} type="range" min="0" max="20000" step="50"/>
-     <label for="palkka">Palkka</label>
-     <label for="palkka" style="margin-left: 0.3rem;">{palkka}</label>
-  </div>
-  </div>
-  </div>
 
-  <div class="labelInput">
-  </div>
+  
+
+  <!-- <div class="labelInput">
+  </div> -->
 
   <!-- <div class="buttondivUnit">
     <button onclick={something}>Osa-aika työt</button>
@@ -97,15 +89,16 @@
 
 
 
-  <div class="nameandinputfield">
+  <!-- <div class="nameandinputfield">
   <p style="margin-top: 1rem;">Työaika</p>
   <div class="select">
-    <select >
-      <option value="Osa-aika työt">Osa-aika työt</option>
-      <option value="Koko aikatyöt">Koko aikatyöt</option>
+    <select onchange={() => karttaValinta = 'Alljobs'} bind:value={jobtitledata.textthree}>
+    <option value="SSS">Kaikki</option>
+      <option value="2">Osa-aika työt</option>
+      <option value="1">Koko aikatyöt</option>
     </select>
   </div>
-</div>
+</div> -->
 
 <div class="nameandinputfield">
   <p style="margin-top: 1rem;">Ammattiryhmä</p>
@@ -243,7 +236,13 @@
 
 </div>
 
-<div class="copyrightUnit"></div>
+<div class="copyrightUnit">
+  <p style="padding: 10px; margin: 0;">
+    <a href="/privacy-policy" style="color: rgb(50, 120, 112); text-decoration: none;">
+      Tietosuojakäytäntö
+    </a>
+  </p>
+</div>
 
 
 
@@ -292,9 +291,11 @@ h1 {
     padding: 2px;
     margin-left: 1em;
     margin-right: 1em;
+    gap: 10px;
+
 }
 
-.subSubNavSection {
+/* .subSubNavSection {
     display: flex;
     justify-content: left;
     align-items: center;
@@ -303,7 +304,7 @@ h1 {
     padding-left: 10px;
     padding-right: 10px;
     margin-right: 0.5em;
-}
+} */
 
 .filtersPage {
     width: 18em;
@@ -434,9 +435,9 @@ p {
         width: 95%;
     }
 
-    .subSubNavSection {
+    /* .subSubNavSection {
         margin-bottom: 0.5em;
-    }
+    } */
 
 
     .mainPageUnit {
