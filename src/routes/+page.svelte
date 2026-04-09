@@ -21,6 +21,7 @@
 
   let palkka = $state(3000);
 
+  
 
   function updateKarttaValinta() {
     karttaValinta = "UnemploymentMap";
